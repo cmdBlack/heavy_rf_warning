@@ -17,7 +17,23 @@ from qgis.utils import iface
 
 # FUNCTION DECLARATIONS
 def filter_warning_txt(txt):
+
+    # line.split("#IlocosSur(")[1].split(")")[0]
+    # txt = txt.replace("#IlocosSur", "<b>#IlocosSur</b>")
     return txt.split(": ")[1]
+
+def bold_txt(txt):
+    if "#IlocosSur(" in txt:
+        mun = txt.split("#IlocosSur(")[1].split(")")[0]
+        print(mun)
+        txt = txt.replace("#IlocosSur(" + mun + ")", "<b>#IlocosSur(" + mun + ")</b>")
+    elif "#IlocosSur" in txt:
+        txt = txt.replace("#IlocosSur", "<b>#IlocosSur</b>")
+    else:
+        pass
+
+    return txt
+
 
 
 now = datetime.now()
@@ -106,13 +122,13 @@ for line in lines:
 
     elif "Red Warning" in line:
         red_warning_string = filter_warning_txt(line)
+        red_warning_string = bold_txt(red_warning_string)
         if "#IlocosSur" in line and not "#IlocosSur(" in line and not rop:
             print("all red")
             red_mun = sur_mun
 
         elif rest_of_string in line:
             red_mun = list(set(sur_mun) - set(orange_mun + yellow_mun + affected_mun + expected_mun))
-
 
         elif "#IlocosSur(" in line or portion_of_string in line:
             red_string_is = line.split("#IlocosSur(")[1].split(")")[0]
@@ -121,16 +137,15 @@ for line in lines:
             red_mun = re.split(', ', red_string_is)
             print(red_mun)
 
-
     elif "Orange Warning" in line:
         orange_warning_string = filter_warning_txt(line)
+        orange_warning_string = bold_txt(orange_warning_string)
         if "#IlocosSur" in line and not "#IlocosSur(" in line and not rop:
             print("all orange")
             orange_mun = sur_mun
 
         elif rest_of_string in line:
             orange_mun = list(set(sur_mun) - set(red_mun + yellow_mun + affected_mun + expected_mun))
-
 
         elif "#IlocosSur(" in line or portion_of_string in line:
             orange_string_is = line.split("#IlocosSur(")[1].split(")")[0]
@@ -141,6 +156,7 @@ for line in lines:
 
     elif "Yellow Warning" in line:
         yellow_warning_string = filter_warning_txt(line)
+        yellow_warning_string = bold_txt(yellow_warning_string)
         if "#IlocosSur" in line and not "#IlocosSur(" in line and not rop:
             print("all yellow")
             yellow_mun = sur_mun
@@ -156,7 +172,7 @@ for line in lines:
             print(yellow_mun)
 
     elif "affecting" in line:
-        affecting_string = line
+        affecting_string = bold_txt(line)
         if "#IlocosSur" in line and not "#IlocosSur(" in line and not rop:
             print("all affecting")
             affected_mun = sur_mun
@@ -166,13 +182,14 @@ for line in lines:
 
         elif "#IlocosSur(" in line or portion_of_string in line:
             affected_string_is = line.split("#IlocosSur(")[1].split(")")[0]
+            # affecting_string = affecting_string.replace("#IlocosSur(" + affected_string_is + ")", "<b>#IlocosSur(" + affected_string_is + ")</b>")
             affected_string_is = affected_string_is.replace(" and ", ", ")
             print(affected_string_is)
             affected_mun = re.split(', ', affected_string_is)
             print(affected_mun)
 
     elif "expected" in line:
-        expecting_string = line
+        expecting_string = bold_txt(line)
         if "#IlocosSur" in line and not "#IlocosSur(" in line and not rop:
             print("all expected")
             expected_mun = sur_mun
@@ -182,6 +199,7 @@ for line in lines:
 
         elif "#IlocosSur(" in line or portion_of_string in line:
             expected_string_is = line.split("#IlocosSur(")[1].split(")")[0]
+            # expecting_string = expecting_string.replace("#IlocosSur(" + expected_string_is + ")", "<b>#IlocosSur(" + expected_string_is + ")</b>")
             expected_string_is = expected_string_is.replace(" and ", ", ")
             print(expected_string_is)
             expected_mun = re.split(', ', expected_string_is)
@@ -293,7 +311,7 @@ layout.initializeDefaults()
 document = QDomDocument()
 
 # read template content
-template_file = open("/Users/kaizerjohnmacni/Documents/rainfall_advisory/hrf_sur.qpt")
+template_file = open("/Users/kaizerjohnmacni/Documents/rainfall_advisory/hrw_sur.qpt")
 template_content = template_file.read()
 template_file.close()
 document.setContent(template_content)
