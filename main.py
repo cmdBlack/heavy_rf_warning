@@ -44,9 +44,9 @@ lines = sys.stdin.readlines()
 advisory = "".join(lines) # Join the list of lines back into a single string
 print("\n--- Your input ---")
 
-title = lines[0].strip("\n")
-weather_system = lines[1].strip("\n")
-date_time = lines[2].strip("\n")
+# title = lines[0].strip("\n")
+# weather_system = lines[1].strip("\n")
+# date_time = lines[2].strip("\n")
 
 
 # expected_string_abra = lines[6].split("#Abra(")[1].split("), ")[0]
@@ -96,7 +96,15 @@ print(rop)
 
 
 for line in lines:
-    if "Red Warning" in line:
+    if "#NLPRSD" in line:
+        title = line.strip("\n")
+    elif "Weather" in line:
+        weather_system = line.strip("\n")
+        print(line)
+    elif "Issued" in line:
+        date_time = line.strip("\n")
+
+    elif "Red Warning" in line:
         red_warning_string = filter_warning_txt(line)
         if "#IlocosSur" in line and not "#IlocosSur(" in line and not rop:
             print("all red")
@@ -307,6 +315,7 @@ expecting_msg = layout.itemById("expecting_msg")
 
 header.setText(title)
 datetime.setText(date_time)
+weather.setText(weather_system)
 red_hrw.setText(red_warning_string)
 orange_hrw.setText(orange_warning_string)
 yellow_hrw.setText(yellow_warning_string)
