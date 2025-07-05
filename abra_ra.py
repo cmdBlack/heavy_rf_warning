@@ -65,8 +65,7 @@ print("\n--- Your input ---")
 
 abra_mun = ["Bangued", "Boliney", "Bucay", "Bucloc", "Daguioman", "Danglas", "Dolores", "LaPaz", "Lacub",
                 "Lagangilang", "Lagayan", "Langiden", "LicuanBaay", "Luba", "Malibcong", "Manabo", "Peñarrubia",
-                "Pidigan", "Pilar", "Sallapadan", "SanGregorio", "SanJuan", "SanQuintin", "Tayum", "Tineg", "Tubo",
-                "Villaviciosa, SanIsidro"]
+                "Pidigan", "Pilar", "Sallapadan", "SanGregorio", "SanJuan", "SanQuintin", "Tayum", "Tineg", "Tubo", "Villaviciosa", "SanIsidro"]
 
 red_mun = []
 orange_mun = []
