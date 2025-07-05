@@ -343,7 +343,7 @@ expecting_msg.setText(expecting_string)
 
 # base_path = os.path.join()
 png_path = os.path.join("/Users/kaizerjohnmacni/Downloads",
-                        str(today) + " " + curr_time[0:2] + "-" + curr_time[-2:] + ".png")
+                        str(today) + " " + curr_time[0:2] + "-" + curr_time[-2:] + "IlocosSurHRW.png")
 
 exporter = QgsLayoutExporter(layout)
 exporter.exportToImage(png_path, QgsLayoutExporter.ImageExportSettings())

@@ -1,4 +1,3 @@
-from multiprocessing.connection import arbitrary_address
 from qgis.core import *
 import sys
 import re
@@ -16,9 +15,6 @@ from qgis.utils import iface
 
 
 # FUNCTION DECLARATIONS
-def filter_warning_txt(txt):
-    return txt.split(": ")[1]
-
 def bold_txt(txt):
     if "#Abra(" in txt:
         mun = txt.split("#Abra(")[1].split(")")[0]
@@ -60,19 +56,6 @@ print("\n--- Your input ---")
 # title = lines[0].strip("\n")
 # weather_system = lines[1].strip("\n")
 # date_time = lines[2].strip("\n")
-
-
-# expected_string_abra = lines[6].split("#Abra(")[1].split("), ")[0]
-# affected_string_abra = lines[4].split("#Abra(")[1].split("), ")[0]
-# affected_string = filter_txt(lines[4].strip("\n"))
-# expected_string = filter_txt(lines[6].strip("\n"))
-
-# expected_string = ""
-# affected_string = ""
-# expected_string_abra = ""
-# affected_string_abra = ""
-#
-
 
 # sur_mun = ["Alilem", "Banayoyo", "Bantay", "Burgos", "Cabugao", "Caoayan", "Cervantes", "CandonCity", "Galimuyod",
 #            "GregoriodelPilar", "Lidlidda", "Magsingal", "Nagbukel", "Narvacan", "Quirino", "Salcedo",
@@ -121,66 +104,6 @@ for line in lines:
         print(line)
     elif "Issued" in line:
         date_time = line.strip("\n")
-
-    elif "Red Warning" in line:
-        red_warning_string = filter_warning_txt(line)
-        red_warning_string = bold_txt(red_warning_string)
-        if "#Abra" in line and not "#Abra(" in line and not rop:
-            print("all red")
-            red_mun = abra_mun
-
-        elif rest_of_string in line:
-            red_mun = list(set(abra_mun) - set(orange_mun + yellow_mun + affected_mun + expected_mun))
-
-        elif "#Abra(" in line or portion_of_string in line:
-            try:
-                red_string_is = line.split("#Abra(")[1].split(")")[0]
-                red_string_is = red_string_is.replace(" and ", ", ")
-                print(red_string_is)
-                red_mun = re.split(', ', red_string_is)
-                print(red_mun)
-            except Exception as e:
-                red_mun = abra_mun
-
-    elif "Orange Warning" in line:
-        orange_warning_string = filter_warning_txt(line)
-        orange_warning_string = bold_txt(orange_warning_string)
-        if "#Abra" in line and not "#Abra(" in line and not rop:
-            print("all orange")
-            orange_mun = abra_mun
-
-        elif rest_of_string in line:
-            orange_mun = list(set(abra_mun) - set(red_mun + yellow_mun + affected_mun + expected_mun))
-
-        elif "#Abra(" in line or portion_of_string in line:
-            try:
-                orange_string_is = line.split("#Abra(")[1].split(")")[0]
-                orange_string_is = orange_string_is.replace(" and ", ", ")
-                print(orange_string_is)
-                orange_mun = re.split(', ', orange_string_is)
-                print(orange_mun)
-            except Exception as e:
-                orange_mun = abra_mun
-
-    elif "Yellow Warning" in line:
-        yellow_warning_string = filter_warning_txt(line)
-        yellow_warning_string = bold_txt(yellow_warning_string)
-        if "#Abra" in line and not "#Abra(" in line and not rop:
-            print("all yellow")
-            yellow_mun = abra_mun
-
-        elif rest_of_string in line:
-            yellow_mun = list(set(abra_mun) - set(red_mun + orange_mun + affected_mun + expected_mun))
-
-        elif "#Abra(" in line or portion_of_string in line:
-            try:
-                yellow_string_is = line.split("#Abra(")[1].split(")")[0]
-                yellow_string_is = yellow_string_is.replace(" and ", ", ")
-                print(yellow_string_is)
-                yellow_mun = re.split(', ', yellow_string_is)
-                print(yellow_mun)
-            except Exception as e:
-                yellow_mun = abra_mun
 
     elif "affecting" in line:
         affecting_string = bold_txt(line)
@@ -268,7 +191,7 @@ layout.initializeDefaults()
 document = QDomDocument()
 
 # read template content
-template_file = open("/Users/kaizerjohnmacni/Documents/rainfall_advisory/abra_HRW.qpt")
+template_file = open("/Users/kaizerjohnmacni/Documents/rainfall_advisory/abra_rf_adv.qpt")
 template_content = template_file.read()
 template_file.close()
 document.setContent(template_content)
@@ -276,31 +199,25 @@ document.setContent(template_content)
 # load layout from template and add to Layout Manager
 layout.loadFromTemplate(document, QgsReadWriteContext())
 project.layoutManager().addLayout(layout)
-layout = QgsProject.instance().layoutManager().layoutByName("heavy_rainfall_warning")
+layout = QgsProject.instance().layoutManager().layoutByName("rf_adv")
 
 # update Text values
 header = layout.itemById("advisory_number")
 weather = layout.itemById("weather_system")
 datetime = layout.itemById("datetime")
-red_hrw = layout.itemById("red_hrw")
-orange_hrw = layout.itemById("orange_hrw")
-yellow_hrw = layout.itemById("yellow_hrw")
 affecting_msg = layout.itemById("affecting_msg")
 expecting_msg = layout.itemById("expecting_msg")
 
 header.setText(title)
 datetime.setText(date_time)
 weather.setText(weather_system)
-red_hrw.setText(red_warning_string)
-orange_hrw.setText(orange_warning_string)
-yellow_hrw.setText(yellow_warning_string)
 
 affecting_msg.setText(affecting_string)
 expecting_msg.setText(expecting_string)
 
 # base_path = os.path.join()
 png_path = os.path.join("/Users/kaizerjohnmacni/Downloads",
-                        str(today) + " " + curr_time[0:2] + "-" + curr_time[-2:] + "AbraHRW.png")
+                        str(today) + " " + curr_time[0:2] + "-" + curr_time[-2:] + "AbraRA.png")
 
 exporter = QgsLayoutExporter(layout)
 exporter.exportToImage(png_path, QgsLayoutExporter.ImageExportSettings())
