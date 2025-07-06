@@ -132,6 +132,11 @@ abra_mun = ["Bangued", "Boliney", "Bucay", "Bucloc", "Daguioman", "Danglas", "Do
                 "Pidigan", "Pilar", "Sallapadan", "SanGregorio", "SanJuan", "SanQuintin", "Tayum", "Tineg", "Tubo",
                 "Villaviciosa", "SanIsidro"]
 
+western_abra = ["Lagayan", "Danglas", "LaPaz", "Dolores", "Luba", "Pilar", "Villaviciosa", "SanIsidro", "Pidigan",
+                "SanQuintin", "Langiden", "Bangued", "Tayum", "Bucay", "Manabo", "Peñarrubia"]
+
+# Southern  # Abra(Boliney, Bucay, Bucloc, Daguioman, LicuanBaay, Luba, Malibcong, Manabo, Peñarrubia, Pidigan, Pilar, Sallapadan, SanIsidro, SanQuintin, Tubo, Villaviciosa)
+
 red_mun = []
 orange_mun = []
 yellow_mun = []
@@ -151,6 +156,7 @@ all_red_flag = False
 
 rest_of_string = "rest of #Abra"
 portion_of_string = "portions of #Abra"
+western_abra_string = "Western #Abra"
 
 rop = rest_of_string in advisory or portion_of_string in advisory
 rest = rest_of_string in advisory
@@ -172,7 +178,11 @@ for line in lines:
     elif "Red Warning" in line:
         red_warning_string = filter_warning_txt(line)
         red_warning_string = bold_txt(red_warning_string)
-        if "#Abra" in line and not "#Abra(" in line and not rop:
+
+        if western_abra_string in line:
+            red_mun = western_abra
+
+        elif "#Abra" in line and not "#Abra(" in line and not rop:
             print("all red")
             red_mun = abra_mun
 
@@ -192,7 +202,11 @@ for line in lines:
     elif "Orange Warning" in line:
         orange_warning_string = filter_warning_txt(line)
         orange_warning_string = bold_txt(orange_warning_string)
-        if "#Abra" in line and not "#Abra(" in line and not rop:
+
+        if western_abra_string in line:
+            orange_mun = western_abra
+
+        elif "#Abra" in line and not "#Abra(" in line and not rop:
             print("all orange")
             orange_mun = abra_mun
 
@@ -212,7 +226,10 @@ for line in lines:
     elif "Yellow Warning" in line:
         yellow_warning_string = filter_warning_txt(line)
         yellow_warning_string = bold_txt(yellow_warning_string)
-        if "#Abra" in line and not "#Abra(" in line and not rop:
+        if western_abra_string in line:
+            yellow_mun = western_abra
+
+        elif "#Abra" in line and not "#Abra(" in line and not rop:
             print("all yellow")
             yellow_mun = abra_mun
 
@@ -231,7 +248,10 @@ for line in lines:
 
     elif "affecting" in line:
         affecting_string = bold_txt(line)
-        if "#Abra" in line and not "#Abra(" in line and not rop:
+        if western_abra_string in line:
+            affected_mun = western_abra
+
+        elif "#Abra" in line and not "#Abra(" in line and not rop:
             print("all affecting")
             affected_mun = abra_mun
 
@@ -251,7 +271,10 @@ for line in lines:
 
     elif "expected" in line:
         expecting_string = bold_txt(line)
-        if "#Abra" in line and not "#Abra(" in line and not rop:
+        if western_abra_string in line:
+            expected_mun = western_abra
+
+        elif "#Abra" in line and not "#Abra(" in line and not rop:
             print("all expected")
             expected_mun = abra_mun
 

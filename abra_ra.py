@@ -97,6 +97,9 @@ abra_mun = ["Bangued", "Boliney", "Bucay", "Bucloc", "Daguioman", "Danglas", "Do
                 "Lagangilang", "Lagayan", "Langiden", "LicuanBaay", "Luba", "Malibcong", "Manabo", "Peñarrubia",
                 "Pidigan", "Pilar", "Sallapadan", "SanGregorio", "SanJuan", "SanQuintin", "Tayum", "Tineg", "Tubo", "Villaviciosa", "SanIsidro"]
 
+western_abra = ["Lagayan", "Danglas", "LaPaz", "Dolores", "Luba", "Pilar", "Villaviciosa", "SanIsidro", "Pidigan",
+                "SanQuintin", "Langiden", "Bangued", "Tayum", "Bucay", "Manabo", "Peñarrubia"]
+
 red_mun = []
 orange_mun = []
 yellow_mun = []
