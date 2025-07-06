@@ -11,10 +11,36 @@ from qgis.PyQt.QtGui import (
 )
 from qgis.utils import iface
 
+from PyQt5.QtGui import QFont
+
+
 # global variables
 
 
 # FUNCTION DECLARATIONS
+def adjust_fsize(txt):
+    hash_cnt = txt.count("#")
+
+    if hash_cnt == 1:
+        return 35
+    elif hash_cnt > 4:
+        return 15
+    else:
+        return 23
+
+    # return 110 - len(txt) * 0.1
+
+
+def adjust_fsize_ae(txt):
+    hash_cnt = txt.count("#")
+
+    if hash_cnt > 4:
+        return 20
+    else:
+        return 25
+
+    # return 16 - len(txt) * 0.2
+
 def filter_warning_txt(txt):
 
     # line.split("#IlocosSur(")[1].split(")")[0]
@@ -38,6 +64,22 @@ def bold_txt(txt):
 now = datetime.now()
 curr_time = now.strftime("%I:%M %p")
 today = date.today()
+
+# Create a QgsTextFormat object
+text_format = QgsTextFormat()
+text_format1 = QgsTextFormat()
+# text_format1.setSize(20)
+
+# Create a QFont object
+font = QFont()
+font.setFamily("Arial")  # Or any other font family you prefer
+# font.setBold(True)        # Set font to bold (optional)
+
+font1 = QFont()
+font1.setFamily("OpenSans")  # Or any other font family you prefer
+
+text_format.setFont(font)
+text_format1.setFont(font1)
 
 
 # Supply path to qgis install location
@@ -348,12 +390,32 @@ expecting_msg = layout.itemById("expecting_msg")
 header.setText(title)
 datetime.setText(date_time)
 weather.setText(weather_system)
+# red_hrw.setText(red_warning_string)
+# orange_hrw.setText(orange_warning_string)
+# yellow_hrw.setText(yellow_warning_string)
+#
+# affecting_msg.setText(affecting_string)
+# expecting_msg.setText(expecting_string)
+
 red_hrw.setText(red_warning_string)
+text_format.setSize(adjust_fsize(red_warning_string))
+red_hrw.setTextFormat(text_format)
+
 orange_hrw.setText(orange_warning_string)
+text_format.setSize(adjust_fsize(orange_warning_string))
+orange_hrw.setTextFormat(text_format)
+
 yellow_hrw.setText(yellow_warning_string)
+text_format.setSize(adjust_fsize(yellow_warning_string))
+yellow_hrw.setTextFormat(text_format)
 
 affecting_msg.setText(affecting_string)
+text_format1.setSize(adjust_fsize_ae(affecting_string))
+affecting_msg.setTextFormat(text_format1)
+
 expecting_msg.setText(expecting_string)
+text_format1.setSize(adjust_fsize_ae(expecting_string))
+expecting_msg.setTextFormat(text_format1)
 
 # base_path = os.path.join()
 png_path = os.path.join("/Users/kaizerjohnmacni/Downloads",

@@ -11,10 +11,22 @@ from qgis.PyQt.QtGui import (
 )
 from qgis.utils import iface
 
+from PyQt5.QtGui import QFont
+
+
 # global variables
 
 
 # FUNCTION DECLARATIONS
+
+def adjust_fsize_ae(txt):
+    hash_cnt = txt.count("#")
+
+    if hash_cnt > 4:
+        return 30
+    else:
+        return 25
+
 def bold_txt(txt):
     if "#IlocosSur(" in txt:
         mun = txt.split("#IlocosSur(")[1].split(")")[0]
@@ -31,6 +43,22 @@ def bold_txt(txt):
 now = datetime.now()
 curr_time = now.strftime("%I:%M %p")
 today = date.today()
+
+# Create a QgsTextFormat object
+text_format = QgsTextFormat()
+text_format1 = QgsTextFormat()
+# text_format1.setSize(20)
+
+# Create a QFont object
+font = QFont()
+font.setFamily("Arial")  # Or any other font family you prefer
+# font.setBold(True)        # Set font to bold (optional)
+
+font1 = QFont()
+font1.setFamily("OpenSans")  # Or any other font family you prefer
+
+text_format.setFont(font)
+text_format1.setFont(font1)
 
 
 # Supply path to qgis install location
@@ -209,8 +237,17 @@ header.setText(title)
 datetime.setText(date_time)
 weather.setText(weather_system)
 
+# affecting_msg.setText(affecting_string)
+# expecting_msg.setText(expecting_string)
+
+
 affecting_msg.setText(affecting_string)
+text_format1.setSize(adjust_fsize_ae(affecting_string))
+affecting_msg.setTextFormat(text_format1)
+
 expecting_msg.setText(expecting_string)
+text_format1.setSize(adjust_fsize_ae(expecting_string))
+expecting_msg.setTextFormat(text_format1)
 
 # base_path = os.path.join()
 png_path = os.path.join("/Users/kaizerjohnmacni/Downloads",
