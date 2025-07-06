@@ -95,6 +95,10 @@ qgs.initQgis()
 # Write your code here to load some layers, use processing
 # algorithms, etc.
 
+fsize = int(input("Enter text font size for HRW: "))
+fsize2 = int(input("Enter text font size for AE: "))
+
+
 # input tstm string
 print("Enter advisory. Press Ctrl+D (Unix/macOS) or Ctrl+Z then Enter (Windows) to finish.")
 lines = sys.stdin.readlines()
@@ -153,6 +157,31 @@ print(rop)
 
 
 for line in lines:
+
+    if "ViganCity" in line:
+        pass
+    elif "Vigan City" in line:
+        line = line.replace("Vigan City", "ViganCity")
+        print("replaced")
+    elif "CityOfVigan" in line:
+        line = line.replace("CityOfVigan", "ViganCity")
+        print("replaced")
+    elif "Vigan" in line:
+        line = line.replace("Vigan", "ViganCity")
+        print("replaced")
+
+    if "CandonCity" in line:
+        pass
+    elif "Candon City" in line:
+        line = line.replace("Candon City", "CandonCity")
+        print("replaced")
+    elif "CityOfCandon" in line:
+        line = line.replace("CityOfCandon", "CandonCity")
+        print("replaced")
+    elif "Candon" in line:
+        line = line.replace("Candon", "CandonCity")
+        print("replaced")
+
     if "#NLPRSD" in line:
         title = line.strip("\n")
     elif "Weather" in line:
@@ -398,23 +427,28 @@ weather.setText(weather_system)
 # expecting_msg.setText(expecting_string)
 
 red_hrw.setText(red_warning_string)
-text_format.setSize(adjust_fsize(red_warning_string))
+# text_format.setSize(adjust_fsize(red_warning_string))
+text_format.setSize(fsize)
 red_hrw.setTextFormat(text_format)
 
 orange_hrw.setText(orange_warning_string)
-text_format.setSize(adjust_fsize(orange_warning_string))
+# text_format.setSize(adjust_fsize(orange_warning_string))
+text_format.setSize(fsize)
 orange_hrw.setTextFormat(text_format)
 
 yellow_hrw.setText(yellow_warning_string)
-text_format.setSize(adjust_fsize(yellow_warning_string))
+# text_format.setSize(adjust_fsize(yellow_warning_string))
+text_format.setSize(fsize)
 yellow_hrw.setTextFormat(text_format)
 
 affecting_msg.setText(affecting_string)
-text_format1.setSize(adjust_fsize_ae(affecting_string))
+# text_format1.setSize(adjust_fsize_ae(affecting_string))
+text_format1.setSize(fsize2)
 affecting_msg.setTextFormat(text_format1)
 
 expecting_msg.setText(expecting_string)
-text_format1.setSize(adjust_fsize_ae(expecting_string))
+# text_format1.setSize(adjust_fsize_ae(expecting_string))
+text_format1.setSize(fsize2)
 expecting_msg.setTextFormat(text_format1)
 
 # base_path = os.path.join()

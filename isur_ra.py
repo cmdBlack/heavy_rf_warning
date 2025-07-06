@@ -128,6 +128,30 @@ print(rop)
 
 
 for line in lines:
+    if "ViganCity" in line:
+        pass
+    elif "Vigan City" in line:
+        line = line.replace("Vigan City", "ViganCity")
+        print("replaced")
+    elif "CityOfVigan" in line:
+        line = line.replace("CityOfVigan", "ViganCity")
+        print("replaced")
+    elif "Vigan" in line:
+        line = line.replace("Vigan", "ViganCity")
+        print("replaced")
+
+    if "CandonCity" in line:
+        pass
+    elif "Candon City" in line:
+        line = line.replace("Candon City", "CandonCity")
+        print("replaced")
+    elif "CityOfCandon" in line:
+        line = line.replace("CityOfCandon", "CandonCity")
+        print("replaced")
+    elif "Candon" in line:
+        line = line.replace("Candon", "CandonCity")
+        print("replaced")
+
     if "#NLPRSD" in line:
         title = line.strip("\n")
     elif "Weather" in line:
