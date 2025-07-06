@@ -23,7 +23,7 @@ def adjust_fsize_ae(txt):
     hash_cnt = txt.count("#")
 
     if hash_cnt > 4:
-        return 25
+        return 23
     else:
         return 25
 
@@ -82,6 +82,8 @@ print("Enter advisory. Press Ctrl+D (Unix/macOS) or Ctrl+Z then Enter (Windows) 
 lines = sys.stdin.readlines()
 advisory = "".join(lines) # Join the list of lines back into a single string
 print("\n--- Your input ---")
+
+
 
 # title = lines[0].strip("\n")
 # weather_system = lines[1].strip("\n")
@@ -201,9 +203,9 @@ for feature in features:
         elif mun_name in yellow_mun:
             feature['hrw'] = 1
         elif mun_name in affected_mun:
-            feature['hrw'] = 12
+            feature['hrw'] = 22
         elif mun_name in expected_mun:
-            feature['hrw'] = 11
+            feature['hrw'] = 21
         else:
             feature['hrw'] = 0
 
@@ -211,7 +213,7 @@ for feature in features:
         layer.updateFeature(feature)
         up_hrw = feature.attribute('hrw')
 
-        print(f"Municipality Name: {mun_name}, RAIN_CAT: {up_hrw}")
+        print(f"Municipality Name: {mun_name}, TSTM: {up_hrw}")
 
 manager = project.layoutManager()
 layouts_list = manager.printLayouts()
@@ -220,7 +222,7 @@ layout.initializeDefaults()
 document = QDomDocument()
 
 # read template content
-template_file = open("/Users/kaizerjohnmacni/Documents/rainfall_advisory/abra_rf_adv.qpt")
+template_file = open("/Users/kaizerjohnmacni/Documents/rainfall_advisory/abra_tstm.qpt")
 template_content = template_file.read()
 template_file.close()
 document.setContent(template_content)
@@ -228,18 +230,18 @@ document.setContent(template_content)
 # load layout from template and add to Layout Manager
 layout.loadFromTemplate(document, QgsReadWriteContext())
 project.layoutManager().addLayout(layout)
-layout = QgsProject.instance().layoutManager().layoutByName("rf_adv")
+layout = QgsProject.instance().layoutManager().layoutByName("tstm_abra")
 
 # update Text values
 header = layout.itemById("advisory_number")
-weather = layout.itemById("weather_system")
+# weather = layout.itemById("weather_system")
 datetime = layout.itemById("datetime")
 affecting_msg = layout.itemById("affecting_msg")
 expecting_msg = layout.itemById("expecting_msg")
 
 header.setText(title)
 datetime.setText(date_time)
-weather.setText(weather_system)
+# weather.setText(weather_system)
 
 # affecting_msg.setText(affecting_string)
 # expecting_msg.setText(expecting_string)
@@ -256,7 +258,7 @@ expecting_msg.setTextFormat(text_format1)
 
 # base_path = os.path.join()
 png_path = os.path.join("/Users/kaizerjohnmacni/Downloads",
-                        str(today) + " " + curr_time[0:2] + "-" + curr_time[-2:] + "AbraRA.png")
+                        str(today) + " " + curr_time[0:2] + "-" + curr_time[-2:] + "AbraTSTM.png")
 
 exporter = QgsLayoutExporter(layout)
 exporter.exportToImage(png_path, QgsLayoutExporter.ImageExportSettings())

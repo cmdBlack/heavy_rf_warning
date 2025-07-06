@@ -23,7 +23,7 @@ def adjust_fsize_ae(txt):
     hash_cnt = txt.count("#")
 
     if hash_cnt > 4:
-        return 30
+        return 26
     else:
         return 25
 
@@ -73,6 +73,9 @@ qgs.initQgis()
 
 # Write your code here to load some layers, use processing
 # algorithms, etc.
+
+fsize = int(input("Enter text font size: "))
+
 
 # input tstm string
 print("Enter advisory. Press Ctrl+D (Unix/macOS) or Ctrl+Z then Enter (Windows) to finish.")
@@ -133,7 +136,7 @@ for line in lines:
     elif "Issued" in line:
         date_time = line.strip("\n")
 
-    elif "affecting" in line:
+    elif "affecting" in line or "experienced" in line:
         affecting_string = bold_txt(line)
         if "#IlocosSur" in line and not "#IlocosSur(" in line and not rop:
             print("all affecting")
@@ -242,11 +245,13 @@ weather.setText(weather_system)
 
 
 affecting_msg.setText(affecting_string)
-text_format1.setSize(adjust_fsize_ae(affecting_string))
+# text_format1.setSize(adjust_fsize_ae(affecting_string))
+text_format1.setSize(fsize)
 affecting_msg.setTextFormat(text_format1)
 
 expecting_msg.setText(expecting_string)
-text_format1.setSize(adjust_fsize_ae(expecting_string))
+# text_format1.setSize(adjust_fsize_ae(expecting_string))
+text_format1.setSize(fsize)
 expecting_msg.setTextFormat(text_format1)
 
 # base_path = os.path.join()
