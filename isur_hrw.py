@@ -14,7 +14,11 @@ from qgis.utils import iface
 from PyQt5.QtGui import QFont
 
 
-# global variables
+# Define the path to the PROJ data directory
+# proj_lib_path = "/Applications/QGIS-LTR.app/Contents/Resources/proj"  # Replace with the actual path
+
+# Set the environment variable
+os.environ["PROJ_LIB"] = "/Applications/QGIS-LTR.app/Contents/Resources/proj"
 
 
 # FUNCTION DECLARATIONS

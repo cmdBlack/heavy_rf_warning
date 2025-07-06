@@ -14,8 +14,8 @@ from qgis.utils import iface
 from PyQt5.QtGui import QFont
 
 
-# global variables
-
+# Set the environment variable
+os.environ["PROJ_LIB"] = "/Applications/QGIS-LTR.app/Contents/Resources/proj"
 
 # FUNCTION DECLARATIONS
 
